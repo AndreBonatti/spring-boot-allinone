@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "81b7d53a-b16f-4725-aa86-a1246640624b",
+		"name": "Buider-project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Success",
+			"item": [
+				{
+					"name": "CreateClient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"POST request success\"] = responseCode.code === 201\r",
+									"tests[\"Id expected\"] = pm.response.json() > 0;\r",
+									"pm.collectionVariables.set('PUT_ID', pm.response.json());\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"annotation\": \"rua bahia, 762\",\r\n  \"birthday\": \"2000-01-01\",\r\n  \"name\": \"Pedro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClient",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"PUT request success\"] = pm.response.code === 200\r",
+									"let id = JSON.parse(pm.variables.get('PUT_ID'));\r",
+									"tests[\"Id expected\"] = pm.response.json().id === id;\r",
+									"let annotation = JSON.parse(pm.variables.get('PUT_MUD'));\r",
+									"tests[\"Data modify\"] = pm.response.json().annotation === annotation;\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": {{PUT_MUD}},\r\n    \"birthday\": \"2000-01-01\",\r\n    \"name\": \"Pedro\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients/{{PUT_ID}}",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients",
+								"{{PUT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Findall - empty params",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Findall - page -size",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients?page=0&size=5&name=Pedro",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								},
+								{
+									"key": "name",
+									"value": "Pedro"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Findall - page -size -name",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients?page=0&size=5",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fail",
+			"item": [
+				{
+					"name": "CreateClient - 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"POST - BAD REQUEST\"] = responseCode.code === 400\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClient - 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"PUT BAD REQUEST\"] = pm.response.code === 400"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients/{{PUT_ID}}",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients",
+								"{{PUT_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateClient - 404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"tests[\"PUT NOT FOUND\"] = pm.response.code === 404"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annotation\": {{PUT_MUD}},\r\n    \"birthday\": \"2000-01-01\",\r\n    \"name\": \"Pedro\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients/9999",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Findall - 500",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_PROJECT}}/app/v1/clients?page=0&size=5s",
+							"host": [
+								"{{URL_PROJECT}}"
+							],
+							"path": [
+								"app",
+								"v1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5s"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_PROJECT",
+			"value": ""
+		},
+		{
+			"key": "PUT_MUD",
+			"value": ""
+		},
+		{
+			"key": "PUT_ID",
+			"value": ""
+		}
+	]
+}
