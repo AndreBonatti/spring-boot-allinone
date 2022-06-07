@@ -70,6 +70,10 @@ https://github.com/provectus/kafka-ui/blob/master/documentation/compose/DOCKER_C
 
 https://github.com/expertos-tech/dio-tutorial-kafka
 
+https://blog.jdriven.com/2022/01/kafka-dead-letter-publishing/
+
+https://evgeniy-khyst.com/spring-kafka-non-blocking-retries-and-dlt/
+
 ## Redis and Postgres
 https://medium.com/echohub/spring-boot-redis-postgresql-caching-58ca352280a3
 
