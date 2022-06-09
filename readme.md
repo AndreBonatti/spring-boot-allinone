@@ -2,7 +2,7 @@
 
 ## Projeto conceito
 
-Utilizado apenas para criação 
+Utilizado apenas para projeto de estudo 
 
 
 ### 1ª Etapa - Utilizado no projeto conceito de programação em camada, com as tecnologias:  
